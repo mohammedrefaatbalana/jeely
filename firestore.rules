@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Approved Craftsmen & NPL Professionals Directory
+    match /professionals/{providerId} {
+      // Anyone can browse verified providers
+      allow read: if true;
+      
+      // Creating or updating provider profiles
+      allow create, update: if request.resource.data.name is string 
+                            && request.resource.data.phone is string
+                            && request.resource.data.prof is string;
+
+      // Reviews subcollection
+      match /reviews/{reviewId} {
+        allow read: if true;
+        allow create: if request.resource.data.rating is number 
+                      && request.resource.data.rating >= 1 
+                      && request.resource.data.rating <= 5;
+      }
+    }
+
+    // 2. Pending Provider Submissions
+    match /pending_professionals/{submissionId} {
+      // Public submissions permitted with valid phone and name
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.phone is string;
+      // Only authenticated admin can list all pending
+      allow read, delete: if request.auth != null;
+    }
+
+    // 3. Client User Profiles
+    match /users/{phone} {
+      allow read: if true;
+      allow create, update: if request.resource.data.phone is string;
+
+      // User favorites subcollection
+      match /data/favorites {
+        allow read, write: if true;
+      }
+
+      // User appointments subcollection
+      match /appointments/{apptId} {
+        allow read, write: if true;
+      }
+    }
+
+    // 4. Global Appointments Registry
+    match /appointments/{apptId} {
+      allow read, write: if true;
+    }
+
+    // 5. In-App Real-time Chat
+    match /chats/{chatId} {
+      allow read, write: if true;
+
+      match /messages/{messageId} {
+        allow read, create: if request.resource.data.text is string;
+      }
+    }
+
+    // 6. Complaints & Grievance Tickets
+    match /complaints/{complaintId} {
+      allow create: if request.resource.data.phone is string 
+                    && request.resource.data.text is string;
+      allow read, update: if request.auth != null;
+    }
+
+    // 7. Blacklist / Blocked Phone Numbers
+    match /blocked_phones/{phone} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

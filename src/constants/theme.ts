@@ -1,0 +1,60 @@
+export const Colors = {
+  emerald: '#0A3D2E',
+  emeraldDark: '#041B14',
+  emeraldLight: '#125E47',
+  gold: '#D4A017',
+  goldLight: '#FFDF00',
+  goldSoft: '#FFF9E6',
+  nileBlue: '#0F496B',
+  nileLight: '#EBF5FF',
+  terracotta: '#C85A32',
+  sunYellow: '#F59E0B',
+  sandBg: '#F8F4EC',
+  sandSoft: '#FFFBF3',
+  cardBg: '#FFFFFF',
+  textMain: '#14201B',
+  textMuted: '#53645D',
+  borderGold: 'rgba(212, 160, 23, 0.35)',
+  borderLight: 'rgba(15, 76, 58, 0.12)',
+  white: '#FFFFFF',
+  black: '#0A0A0A',
+  success: '#16a34a',
+  successBg: '#f0fdf4',
+  danger: '#dc2626',
+  dangerBg: '#fef2f2',
+  busyRed: '#B71C1C',
+  busyRedBg: '#FFEBEE',
+  availGreen: '#1B5E20',
+  availGreenBg: '#E8F5E9',
+};
+
+export const Shadows = {
+  sm: {
+    shadowColor: Colors.emerald,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  md: {
+    shadowColor: Colors.emerald,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+  goldGlow: {
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+};
+
+export const BorderRadius = {
+  sm: 12,
+  md: 18,
+  lg: 24,
+  full: 9999,
+};
